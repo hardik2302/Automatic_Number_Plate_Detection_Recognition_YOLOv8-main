@@ -17,7 +17,7 @@ reader = easyocr.Reader(['en'], gpu = True)
 def ocr_image(img , coordinates):
   x,y,w,h = int(coordinates[0]),int(coordinates[1]),int(coordinates[2]),int(coordinates[3])
   img = img[y:h,y:w]
-  gray = cv2.cvtcolor(img, cv2.COLOR_BGR2GRAY)
+  gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
   result = reader.readtext(gray)
   text = ""
