@@ -16,7 +16,7 @@ reader = easyocr.Reader(['en'], gpu = True)
 
 def ocr_image(img , coordinates):
   x,y,w,h = int(coordinates[0]),int(coordinates[1]),int(coordinates[2]),int(coordinates[3])
-  img = img[y:h,y:w]
+  img = img[y:h,x:w]
   gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
   result = reader.readtext(gray)
@@ -24,7 +24,7 @@ def ocr_image(img , coordinates):
   for res in result:
     if len(result) == 1:
       text = res[1]
-    if len(result)>1 and len(result)>6 and len(result)>0.2:
+    if len(result)>1 and len(res[1])>6 and len(res[2])>0.2:
       text = res[1]
 class DetectionPredictor(BasePredictor):
 
@@ -89,7 +89,7 @@ class DetectionPredictor(BasePredictor):
                 c = int(cls)  # integer class
                 label = None if self.args.hide_labels else (
                     self.model.names[c] if self.args.hide_conf else f'{self.model.names[c]} {conf:.2f}')
-                text_ocr = ocr_image(im0,xyxy)
+                text_ocr = ocr_image(im0, xyxy)
                 label = text_ocr
                 self.annotator.box_label(xyxy, label, color=colors(c, True))
             if self.args.save_crop:
