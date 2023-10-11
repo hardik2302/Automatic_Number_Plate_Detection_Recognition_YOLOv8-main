@@ -24,7 +24,7 @@ def ocr_image(img , coordinates):
   for res in result:
     if len(result) == 1:
       text = res[1]
-    if len(result)>1 and len(res[1])>6 and len(res[2])>0.2:
+    if len(result)>1 and len(res[1])>6 and res[2]>0.2:
       text = res[1]
 class DetectionPredictor(BasePredictor):
 
