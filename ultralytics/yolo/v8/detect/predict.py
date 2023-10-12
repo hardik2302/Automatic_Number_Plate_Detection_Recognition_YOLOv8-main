@@ -21,11 +21,13 @@ def ocr_image(img , coordinates):
 
   result = reader.readtext(gray)
   text = ""
+  
   for res in result:
     if len(result) == 1:
       text = res[1]
     if len(result)>1 and len(res[1])>6 and res[2]>0.2:
       text = res[1]
+  return text
 class DetectionPredictor(BasePredictor):
 
     def get_annotator(self, img):
